@@ -46,10 +46,23 @@ int pressCount = 0;           // Represents how long the button was pressed for
   // 0xFF708F     // Red
 
 // Strobe Light
-  // 0xFFA25D     // Turn on/off light strip
+  // 0xFFA25D     // Turn on/off strobe light
   // 0xFF9867     // Seizure
   // 0xFF9067     // Music 3
   // 0xFF30CF     // Red
+
+// Light Functions
+void turnOnLightStrip(void)
+{
+  irsend.sendNEC(0xFF02FD, 32);
+}
+
+void turnOnStrobeLight(void)
+{
+  irsend.sendNEC(0xFFA25D, 32);
+}
+
+
 
 void loop(void)
 {
@@ -77,10 +90,10 @@ void loop(void)
       // Determine which song to play, based off of how long the button was held
       if (pressCount < 10){
         SdPlay.setFile("music.wav");
-        irsend.sendNEC(0xFF02FD, 32);
+        turnOnLightStrip();
       }else if (pressCount > 10){
         SdPlay.setFile("music2.wav");
-        irsend.sendNEC(0xFF02FD, 32);
+        turnOnLightStrip();
       }
 
       SdPlay.play();    // Start playing the music
