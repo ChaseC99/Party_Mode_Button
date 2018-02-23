@@ -31,10 +31,25 @@ void setup()
   
 }
 
-// VARIABLES FOR loop
+// VARIABLES for loop
 bool buttonPressed = false;   // Represents whether the button was pressed or not
 bool playing = false;         // Represents whether the music is playing or not
 int pressCount = 0;           // Represents how long the button was pressed for
+
+
+// VARIABLES for ir codes
+// Light Strip
+  // 0xFF02FD     // Turn on/off light strip
+  // 0xFFE01F     // Fade 7
+  // 0xFF20DF     // Jump 3
+  // 0xFFE817     // Quick
+  // 0xFF708F     // Red
+
+// Strobe Light
+  // 0xFFA25D     // Turn on/off light strip
+  // 0xFF9867     // Seizure
+  // 0xFF9067     // Music 3
+  // 0xFF30CF     // Red
 
 void loop(void)
 {
