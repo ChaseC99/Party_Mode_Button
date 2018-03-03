@@ -4,19 +4,24 @@
 #include <SimpleSDAudio.h>
 #include <SimpleSDAudioDefs.h>
 #include <SimpleSDAudio.h>
-
+#include <Servo.h>
 #include <IRremote.h> //
 #include <IRremoteInt.h> //
 
 #define BUTTON 7
 
-IRsend irsend; //
+IRsend irsend;  // Initialize ir sender
+Servo servo;    // Initialize servo
 
 void setup()
 {
   Serial.begin(9600);
-  pinMode(BUTTON, INPUT); // input for the button
-  SdPlay.setSDCSPin(4); // sd card cs pin
+
+  // Set up Button
+  pinMode(BUTTON, INPUT);   // input for the button
+
+  // Set up Music
+  SdPlay.setSDCSPin(4);     // set sd card cs pin
   
   if (!SdPlay.init(SSDA_MODE_FULLRATE | SSDA_MODE_MONO | SSDA_MODE_AUTOWORKER))
   {
@@ -28,6 +33,9 @@ void setup()
   {
     //while(1)
   }
+
+  // Set up servo motor
+  //servo.attach({pin});  // set servo pin
   
 }
 
@@ -61,6 +69,11 @@ void turnOnStrobeLight(void)
 {
   irsend.sendNEC(0xFFA25D, 32);
 }
+
+
+// VARIABLES for servo
+int lightStripAngle = 0;
+int strobeLightAngle = 10;
 
 
 
