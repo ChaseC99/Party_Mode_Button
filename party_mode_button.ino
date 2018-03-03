@@ -35,14 +35,9 @@ void setup()
   }
 
   // Set up servo motor
-  //servo.attach({pin});  // set servo pin
+  servo.attach(6);  // set servo pin
   
 }
-
-// VARIABLES for loop
-bool buttonPressed = false;   // Represents whether the button was pressed or not
-bool playing = false;         // Represents whether the music is playing or not
-int pressCount = 0;           // Represents how long the button was pressed for
 
 
 // VARIABLES for ir codes
@@ -76,6 +71,11 @@ int lightStripAngle = 0;
 int strobeLightAngle = 10;
 
 
+// VARIABLES for loop
+bool buttonPressed = false;   // Represents whether the button was pressed or not
+bool playing = false;         // Represents whether the music is playing or not
+int pressCount = 0;           // Represents how long the button was pressed for
+
 
 void loop(void)
 {
@@ -104,6 +104,9 @@ void loop(void)
       if (pressCount < 10){
         SdPlay.setFile("music.wav");
         turnOnLightStrip();
+        servo.write(strobeLightAngle);
+        turnOnStrobeLight();
+        
       }else if (pressCount > 10){
         SdPlay.setFile("music2.wav");
         turnOnLightStrip();
