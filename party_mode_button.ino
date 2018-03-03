@@ -1,17 +1,17 @@
+#include <Stepper.h>
 #include <sd_l0.h>
 #include <sd_l1.h>
 #include <sd_l2.h>
 #include <SimpleSDAudio.h>
 #include <SimpleSDAudioDefs.h>
 #include <SimpleSDAudio.h>
-#include <Servo.h>
 #include <IRremote.h> //
 #include <IRremoteInt.h> //
 
 #define BUTTON 7
 
 IRsend irsend;  // Initialize ir sender
-Servo servo;    // Initialize servo
+Stepper myStepper(64, 2, 5, 6, 8);  // Initialize servo
 
 void setup()
 {
@@ -33,9 +33,6 @@ void setup()
   {
     //while(1)
   }
-
-  // Set up servo motor
-  servo.attach(6);  // set servo pin
   
 }
 
@@ -67,6 +64,7 @@ void turnOnStrobeLight(void)
 
 
 // VARIABLES for servo
+// 64 steps/rev
 int lightStripAngle = 0;
 int strobeLightAngle = 10;
 
@@ -104,7 +102,7 @@ void loop(void)
       if (pressCount < 10){
         SdPlay.setFile("music.wav");
         turnOnLightStrip();
-        servo.write(strobeLightAngle);
+        myStepper.step(10);
         turnOnStrobeLight();
         
       }else if (pressCount > 10){
