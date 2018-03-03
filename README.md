@@ -2,5 +2,5 @@
 Every dorm room should have a party button
 
 ### Contributors
-Software - Chase Carnaroli
+Software - Chase Carnaroli  
 Hardware - Mason Martuscelli
