@@ -43,7 +43,7 @@ int fade7 = 0xFFE01F;       // Fade 7
 int party = fade7;          // Alias for fade7
 int jump3 = 0xFF20DF;       // Jump 3
 int quick = 0xFFE817;       // Quick
-int red = 0xFF708F;         // Red
+int red = 0xFF1AE5;         // Red
 
 // Strobe Light
   // 0xFFA25D     // Turn on/off strobe light
@@ -52,16 +52,6 @@ int red = 0xFF708F;         // Red
   // 0xFF30CF     // Red
 
 // Light Functions
-void turnOnLightStrip(void)
-{
-  irsend.sendNEC(0xFF02FD, 32);
-}
-
-void turnOnStrobeLight(void)
-{
-  irsend.sendNEC(0xFFA25D, 32);
-}
-
 void lightStrip(int code)
 {
   irsend.sendNEC(code, 32);
@@ -82,12 +72,6 @@ void activateRedMode()
   delay(100);
   lightStrip(red);
 }
-
-
-// VARIABLES for servo
-// 64 steps/rev
-int lightStripAngle = 0;
-int strobeLightAngle = 10;
 
 
 // VARIABLES for loop
@@ -115,8 +99,9 @@ void loop(void)
     // Otherwise, start up the music
     if (playing)
     {
-      SdPlay.stop();    // Stop the music
-      playing = false;  // Set playing to false
+      SdPlay.stop();      // Stop the music
+      lightStrip(on_off)  // Turn off lights
+      playing = false;    // Set playing to false
       
     } else {
       // Determine which song to play, based off of how long the button was held
