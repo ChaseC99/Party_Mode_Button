@@ -11,7 +11,6 @@
 #define BUTTON 7
 
 IRsend irsend;  // Initialize ir sender
-Stepper myStepper(64, 2, 5, 6, 8);  // Initialize servo
 
 void setup()
 {
@@ -39,11 +38,12 @@ void setup()
 
 // VARIABLES for ir codes
 // Light Strip
-  // 0xFF02FD     // Turn on/off light strip
-  // 0xFFE01F     // Fade 7
-  // 0xFF20DF     // Jump 3
-  // 0xFFE817     // Quick
-  // 0xFF708F     // Red
+int on_off = 0xFF02FD;      // Turn on/off light strip
+int fade7 = 0xFFE01F;       // Fade 7
+int party = fade7;          // Alias for fade7
+int jump3 = 0xFF20DF;       // Jump 3
+int quick = 0xFFE817;       // Quick
+int red = 0xFF708F;         // Red
 
 // Strobe Light
   // 0xFFA25D     // Turn on/off strobe light
@@ -60,6 +60,27 @@ void turnOnLightStrip(void)
 void turnOnStrobeLight(void)
 {
   irsend.sendNEC(0xFFA25D, 32);
+}
+
+void lightStrip(int code)
+{
+  irsend.sendNEC(code, 32);
+}
+
+void activatePartyMode()
+{
+  SdPlay.setFile("music.wav");
+  lightStrip(on_off);
+  delay(100);
+  lightStrip(fade7);
+}
+
+void activateRedMode()
+{
+  SdPlay.setFile("music2.wav");
+  lightStrip(on_off);
+  delay(100);
+  lightStrip(red);
 }
 
 
@@ -100,14 +121,10 @@ void loop(void)
     } else {
       // Determine which song to play, based off of how long the button was held
       if (pressCount < 10){
-        SdPlay.setFile("music.wav");
-        turnOnLightStrip();
-        myStepper.step(10);
-        turnOnStrobeLight();
+        activatePartyMode();
         
       }else if (pressCount > 10){
-        SdPlay.setFile("music2.wav");
-        turnOnLightStrip();
+        activateRedMode();
       }
 
       SdPlay.play();    // Start playing the music
