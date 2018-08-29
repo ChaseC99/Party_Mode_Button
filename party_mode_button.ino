@@ -5,8 +5,8 @@
 #include <SimpleSDAudio.h>
 #include <SimpleSDAudioDefs.h>
 #include <SimpleSDAudio.h>
-#include <IRremote.h> //
-#include <IRremoteInt.h> //
+#include <IRremote.h>
+#include <IRremoteInt.h>
 
 #define BUTTON 7
 
