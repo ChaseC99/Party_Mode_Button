@@ -22,16 +22,11 @@ void setup()
   // Set up Music
   SdPlay.setSDCSPin(4);     // set sd card cs pin
   
-  if (!SdPlay.init(SSDA_MODE_FULLRATE | SSDA_MODE_MONO | SSDA_MODE_AUTOWORKER))
-  {
-    //while(1); 
-  }
-
-  // music name file
-  if(!SdPlay.setFile("music.wav "))
-  {
-    //while(1)
-  }
+  // Initialize player
+  SdPlay.init(SSDA_MODE_FULLRATE | SSDA_MODE_MONO | SSDA_MODE_AUTOWORKER))
+ 
+  // Set music file
+  SdPlay.setFile("music.wav "))
   
 }
 
@@ -121,8 +116,4 @@ void loop(void)
     pressCount = 0;         // Reset pressCount
     buttonPressed = false;  // Reset buttonPressed
   }
-
-  //while(!SdPlay.isStopped()){ 
-      //;
-    //}
 }
